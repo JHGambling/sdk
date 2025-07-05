@@ -1,1 +1,1 @@
-export type DatabaseOperation = "create" | "findByID" | "findAll" | "update" | "delete";
+export declare type DatabaseOperation = "create" | "findByID" | "findAll" | "update" | "delete";

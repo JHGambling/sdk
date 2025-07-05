@@ -12,4 +12,6 @@ export var ClientEvent;
     ClientEvent["AUTH_REVOKED"] = "auth:revoked";
     // Error event
     ClientEvent["ERROR"] = "error";
+    // Game
+    ClientEvent["GAME_FINISHED_LOADING"] = "game:finished_loading";
 })(ClientEvent || (ClientEvent = {}));

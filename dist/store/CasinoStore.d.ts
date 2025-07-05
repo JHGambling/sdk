@@ -2,7 +2,7 @@ import { type Writable } from "svelte/store";
 /**
  * Type for Svelte's writable store
  */
-type SvelteWritable<T> = Writable<T>;
+declare type SvelteWritable<T> = Writable<T>;
 /**
  * A reactive store implementation that works with both vanilla JavaScript and Svelte
  *

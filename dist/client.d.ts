@@ -5,7 +5,7 @@ import { UserTable } from "./db/UserTable";
 import { WalletTable } from "./db/WalletTable";
 import { ClientEvent } from "./types/events";
 import { WebSocketClient } from "./websocket";
-export type CasinoClientOptions = {
+export declare type CasinoClientOptions = {
     authenticateFromLocalStorage?: boolean;
     token?: string;
     clientType?: string;
@@ -19,6 +19,7 @@ export declare class CasinoClient {
     users: UserTable;
     wallets: WalletTable;
     casino: Casino;
+    session: number;
     private wasConnected;
     private eventListeners;
     constructor(url: string, options?: CasinoClientOptions | undefined);
@@ -39,4 +40,6 @@ export declare class CasinoClient {
      */
     private emit;
     private handlePacket;
+    setSession(session: number): void;
+    sendGameFinishedLoading(): void;
 }

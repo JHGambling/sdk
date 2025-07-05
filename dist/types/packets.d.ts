@@ -1,59 +1,65 @@
-export type ResponsePacket = {
+export declare type ResponsePacket = {
     success: boolean;
     status: string;
     message: string;
 };
-export type AuthRegisterPacket = {
+export declare type AuthRegisterPacket = {
     username: string;
     displayName: string;
     password: string;
 };
-export type AuthRegisterResponsePacket = ResponsePacket & {
+export declare type AuthRegisterResponsePacket = ResponsePacket & {
     userAlreadyExists: boolean;
     token?: string;
 };
-export type AuthLoginPacket = {
+export declare type AuthLoginPacket = {
     username: string;
     password: string;
 };
-export type AuthLoginResponsePacket = ResponsePacket & {
+export declare type AuthLoginResponsePacket = ResponsePacket & {
     userDoesNotExist: boolean;
     token?: string;
 };
-export type AuthAuthenticatePacket = {
+export declare type AuthAuthenticatePacket = {
     token: string;
     clientType: string;
 };
-export type AuthAuthenticateResponsePacket = ResponsePacket & {
+export declare type AuthAuthenticateResponsePacket = ResponsePacket & {
     userID: number;
     expiresAt: number;
 };
-export type DoesUserExistPacket = {
+export declare type DoesUserExistPacket = {
     username: string;
 };
-export type DoesUserExistResponsePacket = ResponsePacket & {
+export declare type DoesUserExistResponsePacket = ResponsePacket & {
     userExists: boolean;
 };
-export type DatabaseOperationPacket = {
+export declare type DatabaseOperationPacket = {
     operation: string;
     table: string;
     op_id: any;
     op_data: any;
 };
-export type DatabaseOperationResponsePacket = {
+export declare type DatabaseOperationResponsePacket = {
     op: DatabaseOperationPacket;
     result: any;
     err: any;
     exec_time_us: number;
 };
-export type DatabaseSubscribePacket = {
+export declare type DatabaseSubscribePacket = {
     operation: string;
     tableID: string;
     resourceID: number;
 };
-export type DatabaseSubUpdatePacket = {
+export declare type DatabaseSubUpdatePacket = {
     tableID: string;
     resourceID: any;
     op: string;
     data: any;
+};
+export declare type SetSessionPacket = {
+    sessionID: number;
+};
+export declare type GameFinishedLoadingPacket = {
+    sessionID: number;
 };

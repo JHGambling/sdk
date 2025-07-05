@@ -20,6 +20,7 @@ export class CasinoClient {
         var _a;
         this.url = url;
         this.options = options;
+        this.session = Math.floor(Math.random() * 2000000000);
         this.wasConnected = false;
         this.eventListeners = new Map();
         this.socket = new WebSocketClient({
@@ -47,7 +48,7 @@ export class CasinoClient {
             clientType: (_a = this.options) === null || _a === void 0 ? void 0 : _a.clientType,
             enableAuthFromLocalStorage: typeof (options === null || options === void 0 ? void 0 : options.authenticateFromLocalStorage) === "boolean"
                 ? options.authenticateFromLocalStorage
-                : true
+                : true,
         });
         this.db = new Database(this);
         this.users = new UserTable(this);
@@ -151,8 +152,22 @@ export class CasinoClient {
             case "db/sub:update":
                 this.db.handleSubUpdatePacket(packet.payload);
                 break;
+            case "game/finished_loading":
+                this.emit(ClientEvent.GAME_FINISHED_LOADING);
+                break;
             default:
                 break;
         }
+    }
+    setSession(session) {
+        this.session = session;
+        this.socket.send("client/set_session", {
+            sessionID: session,
+        });
+    }
+    sendGameFinishedLoading() {
+        this.socket.send("game/finished_loading", {
+            sessionID: this.session,
+        });
     }
 }

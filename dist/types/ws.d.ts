@@ -13,11 +13,11 @@ export declare enum ConnectionEvent {
     RECONNECTING = "reconnecting",
     PING = "ping"
 }
-export type ConnectionEventCallback = () => void;
-export type MessageEventCallback = (packet: WebsocketPacket) => void;
-export type ErrorEventCallback = (error: Error) => void;
-export type ReconnectingEventCallback = (attemptNumber: number) => void;
-export type PingEventCallback = (pingTime: number) => void;
+export declare type ConnectionEventCallback = () => void;
+export declare type MessageEventCallback = (packet: WebsocketPacket) => void;
+export declare type ErrorEventCallback = (error: Error) => void;
+export declare type ReconnectingEventCallback = (attemptNumber: number) => void;
+export declare type PingEventCallback = (pingTime: number) => void;
 export declare class RequestTimeoutError extends Error {
     readonly nonce: number;
     constructor(message: string, nonce: number);

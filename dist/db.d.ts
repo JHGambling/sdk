@@ -1,12 +1,12 @@
 import { CasinoClient } from "./client";
 import { DatabaseOperation } from "./types/db";
 import { DatabaseSubUpdatePacket } from "./types/packets";
-export type DatabaseOpResult = {
+export declare type DatabaseOpResult = {
     result: any;
     err: any;
     exec_time_us: number;
 };
-export type DatabaseSubscription = {
+export declare type DatabaseSubscription = {
     tableID: string;
     recordID: number;
     callback: (rec: DatabaseSubUpdatePacket) => any;

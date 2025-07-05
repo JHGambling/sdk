@@ -1,6 +1,6 @@
 import { CasinoClient } from "./client";
 import { UserModel } from "./models/UserModel";
-export type AuthOptions = {
+export declare type AuthOptions = {
     enableAuthFromLocalStorage?: boolean;
     clientType?: string;
 };

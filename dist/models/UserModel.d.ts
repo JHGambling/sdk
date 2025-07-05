@@ -1,5 +1,5 @@
 import { WalletModel } from "./WalletModel";
-export type UserModel = {
+export declare type UserModel = {
     ID: number;
     Username: string;
     DisplayName: string;

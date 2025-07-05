@@ -1,4 +1,4 @@
-export type WalletModel = {
+export declare type WalletModel = {
     ID: number;
     UserID: number;
     ReceivedStartingBonus: boolean;

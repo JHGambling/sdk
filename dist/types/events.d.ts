@@ -7,6 +7,7 @@ export declare enum ClientEvent {
     AUTH_SUCCESS = "auth:success",
     AUTH_FAIL = "auth:fail",
     AUTH_REVOKED = "auth:revoked",
-    ERROR = "error"
+    ERROR = "error",
+    GAME_FINISHED_LOADING = "game:finished_loading"
 }
-export type EventHandler = (...args: any[]) => void;
+export declare type EventHandler = (...args: any[]) => void;
