@@ -20,7 +20,7 @@ export class CasinoClient {
         var _a;
         this.url = url;
         this.options = options;
-        this.session = Math.floor(Math.random() * 2000000000);
+        this.session = Math.floor(Math.random() * 2000000000) + 1;
         this.wasConnected = false;
         this.eventListeners = new Map();
         this.socket = new WebSocketClient({
@@ -54,6 +54,8 @@ export class CasinoClient {
         this.users = new UserTable(this);
         this.wallets = new WalletTable(this);
         this.casino = new Casino(this);
+        this.session =
+            (options === null || options === void 0 ? void 0 : options.session) || Math.floor(Math.random() * 2000000000);
     }
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -90,6 +92,7 @@ export class CasinoClient {
                 }
             }
             this.db.resendSubscriptions();
+            this.setSession(this.session);
         });
     }
     onDisconnect() {

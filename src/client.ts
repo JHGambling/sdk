@@ -13,6 +13,7 @@ export type CasinoClientOptions = {
     authenticateFromLocalStorage?: boolean;
     token?: string;
     clientType?: string;
+    session?: number;
 };
 
 export class CasinoClient {
@@ -24,7 +25,7 @@ export class CasinoClient {
     public wallets: WalletTable;
     public casino: Casino;
 
-    public session: number = Math.floor(Math.random() * 2_000_000_000);
+    public session: number = Math.floor(Math.random() * 2_000_000_000) + 1;
 
     private wasConnected: boolean = false;
     private eventListeners: Map<string, Function[]> = new Map();
@@ -68,6 +69,9 @@ export class CasinoClient {
         this.users = new UserTable(this);
         this.wallets = new WalletTable(this);
         this.casino = new Casino(this);
+
+        this.session =
+            options?.session || Math.floor(Math.random() * 2_000_000_000);
     }
 
     public async connect() {
@@ -108,6 +112,7 @@ export class CasinoClient {
         }
 
         this.db.resendSubscriptions();
+        this.setSession(this.session);
     }
 
     private async onDisconnect() {

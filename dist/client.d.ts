@@ -9,6 +9,7 @@ export declare type CasinoClientOptions = {
     authenticateFromLocalStorage?: boolean;
     token?: string;
     clientType?: string;
+    session?: number;
 };
 export declare class CasinoClient {
     url: string;
