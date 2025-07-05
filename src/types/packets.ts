@@ -70,3 +70,12 @@ export type DatabaseSubUpdatePacket = {
     op: string;
     data: any;
 };
+
+// Session
+export type SetSessionPacket = {
+    sessionID: number;
+};
+
+export type GameFinishedLoadingPacket = {
+    sessionID: number;
+};

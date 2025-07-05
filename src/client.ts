@@ -5,6 +5,7 @@ import { UserTable } from "./db/UserTable";
 import { WalletTable } from "./db/WalletTable";
 import { ClientEvent } from "./types/events";
 import { WebsocketPacket } from "./types/packet";
+import { GameFinishedLoadingPacket, SetSessionPacket } from "./types/packets";
 import { ConnectionEvent, ConnectionStatus } from "./types/ws";
 import { WebSocketClient } from "./websocket";
 
@@ -22,6 +23,8 @@ export class CasinoClient {
     public users: UserTable;
     public wallets: WalletTable;
     public casino: Casino;
+
+    public session: number = Math.floor(Math.random() * 2_000_000_000);
 
     private wasConnected: boolean = false;
     private eventListeners: Map<string, Function[]> = new Map();
@@ -54,16 +57,13 @@ export class CasinoClient {
             this.casino.pingTimeStore.set(pingTime);
         });
 
-        this.auth = new Auth(
-            this,
-            {
-                clientType: this.options?.clientType,
-                enableAuthFromLocalStorage: 
-                    typeof options?.authenticateFromLocalStorage === "boolean"
+        this.auth = new Auth(this, {
+            clientType: this.options?.clientType,
+            enableAuthFromLocalStorage:
+                typeof options?.authenticateFromLocalStorage === "boolean"
                     ? options.authenticateFromLocalStorage
-                    : true
-            },
-        );
+                    : true,
+        });
         this.db = new Database(this);
         this.users = new UserTable(this);
         this.wallets = new WalletTable(this);
@@ -171,8 +171,24 @@ export class CasinoClient {
             case "db/sub:update":
                 this.db.handleSubUpdatePacket(packet.payload);
                 break;
+            case "game/finished_loading":
+                this.emit(ClientEvent.GAME_FINISHED_LOADING);
+                break;
             default:
                 break;
         }
+    }
+
+    public setSession(session: number) {
+        this.session = session;
+        this.socket.send("client/set_session", {
+            sessionID: session,
+        } as SetSessionPacket);
+    }
+
+    public sendGameFinishedLoading() {
+        this.socket.send("game/finished_loading", {
+            sessionID: this.session,
+        } as GameFinishedLoadingPacket);
     }
 }
